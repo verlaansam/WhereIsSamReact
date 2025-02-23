@@ -4,14 +4,15 @@ function Blog() {
 
 
   return (
-    <div className="bg-white p-6 border rounded-lg shadow-md w-96 border-2 border-black">
-        <h2 className="text-xl font-bold mb-4 text-black underline">Recente Blog Posts</h2>
-        <ul>
+    <div className="w-screen flex flex-col items-center justify-center border-b border-gray-700 p-2">
+        <h2 className="text-2xl font-roboto-slab  text-gray-200 pl-2 w-screen">Het Logboek</h2>
+        <h4 className="text-sm text-gray-600 border-b border-gray-700 pl-2 w-screen">op spel fouten voorbehouden</h4>
+        <ul className="p-2 w-screen flex flex-col items-center">
           <BlogItem/>
           <BlogItem/>
           <BlogItem/>
         </ul>
-        <p className="text-sm text-gray-600 underline">Meer Blogs...</p>
+        <button className="text-sm text-white font-roboto-slab border p-2 ml-4 w-3/4 hover:bg-white hover:text-black">Meer Blogs...</button>
       </div>
   )
 }

@@ -1,8 +1,7 @@
 function Header( {title} ) {
 
-
   return (
-    <h1 className="flex flex-row items-center justify-center text-7xl text-black bg-white border-2 border-black rounded-lg p-4 m-4">{title}</h1>
+    <h1 className="text-6xl font-roboto-slab text-gray-200 border-b border-gray-700 flex justify-center">{title}</h1>
   )
 }
 
