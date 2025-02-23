@@ -9,13 +9,10 @@ function Home() {
 
   return (
     <>
-      <div className='bg-slate-950 w-screen'>
-        
+      <div className='bg-slate-950 w-screen h-full sm:h-screen'>
         <Header title="Where Is"/>
-        <div className=''>
           <Ais/>
           <Blog/>
-        </div>
       </div>
     </>
   )

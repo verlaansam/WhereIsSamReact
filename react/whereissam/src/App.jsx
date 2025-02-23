@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import HomePage from "./pages/Home";
 import Navbar from "./components/Navbar";
+import Blogs from "./pages/Blogs";
 
 const App = () => {
   return (
@@ -18,6 +19,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/blog" element={<Blogs />} />
+          <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </Router>
     </AuthProvider>
