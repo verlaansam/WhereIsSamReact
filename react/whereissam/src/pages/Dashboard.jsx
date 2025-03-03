@@ -11,9 +11,17 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [blogPosts, setBlogPosts] = useState([]);
 
+  const ALLOWED_UID = VITE_ALLOWED_UID; 
+  const ALLOWED_EMAIL = VITE_ALLOWED_EMAIL;
+
   // Redirect if not logged in
   if (!user) {
     navigate("/login");
+    return null;
+  }
+
+  if (user.uid !== ALLOWED_UID && user.email !== ALLOWED_EMAIL) {
+    navigate("/");
     return null;
   }
 

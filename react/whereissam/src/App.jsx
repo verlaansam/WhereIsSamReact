@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import HomePage from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Blogs from "./pages/Blogs";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/blog" element={<Blogs />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
+        <Footer/>
       </Router>
     </AuthProvider>
   );

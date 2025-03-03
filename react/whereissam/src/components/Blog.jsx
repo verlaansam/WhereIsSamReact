@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { db, collection, getDocs, query, orderBy, limit } from "../firebase";
 import BlogItem from "./BlogItem";
+import { Link } from "react-router-dom";
 
 function Blog() {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -35,9 +36,9 @@ function Blog() {
         )}
       </ul>
 
-      <button className="text-sm text-white font-roboto-slab border p-2 ml-4 w-3/4 hover:bg-white hover:text-black">
+      <Link to="/Blog" className="text-sm text-white font-roboto-slab border p-2 ml-4 w-3/4 flex justify-center hover:bg-white hover:text-black">
         Meer Blogs...
-      </button>
+      </Link>
     </div>
   );
 }

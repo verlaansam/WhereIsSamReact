@@ -1,14 +1,7 @@
 // Import the functions you need from the SDKs you need
-
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDocs, limit, orderBy, query, updateDoc, deleteDoc, doc } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
-
-
-// TODO: Add SDKs for Firebase products that you want to use
-
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 
 // Your web app's Firebase configuration
@@ -35,4 +28,3 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 export { auth, db, collection, addDoc, getDocs, limit, orderBy, query, updateDoc, deleteDoc, doc };
-export const storage = getStorage(app); // Initialize Firebase Storage

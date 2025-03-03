@@ -9,7 +9,7 @@ function Home() {
 
   return (
     <>
-      <div className='bg-slate-950 w-screen h-full sm:h-screen'>
+      <div className='bg-slate-950 w-screen h-screen overflow-scroll sm:h-screen'>
         <Header title="Where Is"/>
           <Ais/>
           <Blog/>
