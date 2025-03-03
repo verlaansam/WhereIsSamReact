@@ -18,7 +18,7 @@ function BlogItem({ post }) {
 
       {/* Popup Modal */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/60 flex justify-center items-center">
+        <div className="scroll inset-0 bg-black/60 flex justify-center items-center">
           <div className="bg-slate-950 p-6 rounded-lg max-w-lg w-full relative">
             {/* Close button */}
             <button

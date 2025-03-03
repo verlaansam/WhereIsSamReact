@@ -11,8 +11,8 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [blogPosts, setBlogPosts] = useState([]);
 
-  const ALLOWED_UID = VITE_ALLOWED_UID; 
-  const ALLOWED_EMAIL = VITE_ALLOWED_EMAIL;
+  const ALLOWED_UID = import.meta.env.VITE_ALLOWED_UID; 
+  const ALLOWED_EMAIL = import.meta.env.VITE_ALLOWED_EMAIL;
 
   // Redirect if not logged in
   if (!user) {
