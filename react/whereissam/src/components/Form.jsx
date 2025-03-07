@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { db, collection, addDoc } from "../firebase";
 import { Timestamp } from "firebase/firestore";
+import ReactMarkdown from "react-markdown";
 
 const LogForm = () => {
   const [formData, setFormData] = useState({
@@ -102,8 +103,14 @@ const LogForm = () => {
           <input type="text" name="seaState" value={formData.seaState} onChange={handleChange} className="w-full p-2 border rounded" />
         </div>
         <div>
-          <label className="block text-sm font-medium">Notes</label>
-          <textarea name="notes" value={formData.notes} onChange={handleChange} className="w-full p-2 border rounded h-24"></textarea>
+          <label className="block text-sm font-medium">Notes (Markdown Supported)</label>
+          <textarea
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+            className="w-full p-2 border rounded h-24"
+            placeholder="Write in Markdown (*bold*, _italic_, `code`)..."
+          ></textarea>
         </div>
         <button type="submit" className="text-sm text-black font-roboto-slab border p-2 w-full bg-white hover:text-white hover:bg-slate-950 mt-4">
           Submit Log Entry

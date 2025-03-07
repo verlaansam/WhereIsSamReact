@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Trash2, Pencil } from "lucide-react";
 import { db, doc, deleteDoc, updateDoc } from "../firebase";
+import ReactMarkdown from "react-markdown";
 
 function BlogItemSpecial({ post }) {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedData, setUpdatedData] = useState({ ...post });
+  const [successMessage, setSuccessMessage] = useState(""); // ✅ State for success message
+  const [failedMessage, setFailedMessage] = useState(""); // State for failed message
 
   // Handle input change
   const handleChange = (e) => {
@@ -17,10 +20,10 @@ function BlogItemSpecial({ post }) {
       const postRef = doc(db, "logEntries", post.id);
       await updateDoc(postRef, updatedData);
       setIsEditing(false);
-      alert("Blog updated successfully!");
+      setSuccessMessage("Blog updated successfully!");
     } catch (error) {
       console.error("Error updating post:", error);
-      alert("Failed to update blog post.");
+      setFailedMessage("Failed to update blog post.");
     }
   };
 
@@ -29,16 +32,29 @@ function BlogItemSpecial({ post }) {
     if (window.confirm("Are you sure you want to delete this post?")) {
       try {
         await deleteDoc(doc(db, "logEntries", post.id));
-        alert("Blog post deleted.");
+        setSuccessMessage("Blog post deleted.");
       } catch (error) {
         console.error("Error deleting post:", error);
-        alert("Failed to delete blog post.");
+        setFailedMessage("Failed to delete blog post.");
       }
     }
   };
 
   return (
     <section className="border-b border-gray-700 w-11/12 flex flex-col m-2 p-2">
+      {/* ✅ Success Message */}
+      {successMessage && (
+        <div className="text-green-600 font-medium bg-green-100 p-2 rounded-md mb-4">
+          {successMessage}
+        </div>
+      )}
+      {/* ✅ Failed Message */}
+      {failedMessage && (
+        <div className="text-green-600 font-medium bg-red-100 p-2 rounded-md mb-4">
+          {failedMessage}
+        </div>
+      )}
+
       {isEditing ? (
         <div className="flex flex-col gap-2">
           <input
@@ -62,7 +78,7 @@ function BlogItemSpecial({ post }) {
           <div>
             <h3 className="text-lg font-roboto-slab text-gray-200">{post.title}</h3>
             <p className="text-sm text-gray-600">{post.date?.toDate().toLocaleDateString("nl-NL")}</p>
-            <p className="text-gray-400">{post.notes}</p>
+            <p className="mt-2 text-gray-200 truncate w-64">{post.notes || "*Geen notities beschikbaar*"}</p>
           </div>
           <div className="flex gap-2">
             <button onClick={() => setIsEditing(true)} className="text-blue-500"><Pencil /></button>

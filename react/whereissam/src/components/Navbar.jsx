@@ -23,7 +23,7 @@ const Navbar = () => {
 
         {/* Menu Items */}
         <ul
-          className={`absolute md:static top-16 left-0 w-full md:w-auto bg-slate-950 md:flex md:space-x-6 md:items-center text-white transition-all duration-300 ease-in-out ${
+          className={`absolute md:static top-14 left-0 w-full md:w-auto bg-slate-950 md:flex md:space-x-6 md:items-center text-white transition-all duration-300 ease-in-out ${
             isOpen ? "block" : "hidden"
           }`}
         >

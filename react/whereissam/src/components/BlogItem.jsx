@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { X } from "lucide-react"; // Close button icon
+import ReactMarkdown from "react-markdown";
 
 function BlogItem({ post }) {
   const [isOpen, setIsOpen] = useState(false); // Control popup visibility
@@ -13,26 +14,33 @@ function BlogItem({ post }) {
       >
         <h3 className="text-lg font-roboto-slab text-gray-200">{post.title}</h3>
         <p className="text-sm text-gray-600">Geplaatst op {formattedDate}</p>
-        <p className="mt-2 text-gray-200 truncate">{post.notes}</p>
+        <div className="mt-2 text-gray-200 truncate">
+              <ReactMarkdown >{post.notes || "*Geen notities beschikbaar*"}</ReactMarkdown>
+            </div>
       </section>
+      
 
       {/* Popup Modal */}
       {isOpen && (
-        <div className="scroll inset-0 bg-black/60 flex justify-center items-center">
-          <div className="bg-slate-950 p-6 rounded-lg max-w-lg w-full relative">
-            {/* Close button */}
-            <button
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-200"
-              onClick={() => setIsOpen(false)}
-            >
-              <X size={24} />
-            </button>
-            <h3 className="text-xl font-roboto-slab text-gray-200">{post.title}</h3>
-            <p className="text-sm text-gray-600">Geplaatst op {formattedDate}</p>
-            <p className="mt-4 text-gray-200">{post.notes}</p>
+      <div className="fixed inset-0 bg-black/60 flex justify-center items-center p-4 overflow-y-auto">
+        <div className="bg-slate-950 p-6 rounded-lg max-w-lg w-full relative  max-h-[80vh] overflow-y-auto">
+          {/* Close button */}
+          <button
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-200"
+            onClick={() => setIsOpen(false)}
+          >
+            <X size={24} />
+          </button>
+          <h3 className="text-xl font-roboto-slab text-gray-200">{post.title}</h3>
+          <p className="text-sm text-gray-600">Geplaatst op {formattedDate}</p>
+
+          {/* Markdown-rendered notes */}
+          <div className="mt-4 text-gray-200 prose prose-invert">
+            <ReactMarkdown>{post.notes || "*Geen notities beschikbaar*"}</ReactMarkdown>
           </div>
         </div>
-      )}
+      </div>
+    )}
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { db, collection, getDocs, query, orderBy } from "../firebase";
+import { db, collection, query, orderBy } from "../firebase";
+import { onSnapshot } from "firebase/firestore"; // ✅ Real-time updates
 import BlogItemSpecial from "../components/BlogItemSpecial";
 import Header from "../components/Header";
 import { useAuth } from "../context/AuthContext";
@@ -11,7 +12,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [blogPosts, setBlogPosts] = useState([]);
 
-  const ALLOWED_UID = import.meta.env.VITE_ALLOWED_UID; 
+  const ALLOWED_UID = import.meta.env.VITE_ALLOWED_UID;
   const ALLOWED_EMAIL = import.meta.env.VITE_ALLOWED_EMAIL;
 
   // Redirect if not logged in
@@ -25,20 +26,20 @@ const Dashboard = () => {
     return null;
   }
 
-  // Fetch blog posts from Firestore
+  // ✅ Real-time updates met Firestore
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const blogQuery = query(collection(db, "logEntries"), orderBy("date", "desc"));
-        const querySnapshot = await getDocs(blogQuery);
-        const posts = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        setBlogPosts(posts);
-      } catch (error) {
-        console.error("Error fetching blog posts:", error);
-      }
-    };
+    const blogQuery = query(collection(db, "logEntries"), orderBy("date", "desc"));
 
-    fetchData();
+    // 🔥 Luister naar Firestore updates
+    const unsubscribe = onSnapshot(blogQuery, (querySnapshot) => {
+      const posts = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setBlogPosts(posts);
+    });
+
+    return () => unsubscribe(); // 🛑 Cleanup bij unmount
   }, []);
 
   return (
@@ -66,4 +67,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
 
