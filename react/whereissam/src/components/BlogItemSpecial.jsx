@@ -68,7 +68,7 @@ function BlogItemSpecial({ post }) {
             name="notes"
             value={updatedData.notes}
             onChange={handleChange}
-            className="p-1 border rounded"
+            className="p-1 border rounded h-96"
           />
           <button onClick={handleUpdate} className="text-green-500">Save</button>
           <button onClick={() => setIsEditing(false)} className="text-red-500">Cancel</button>

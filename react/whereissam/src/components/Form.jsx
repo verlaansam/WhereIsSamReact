@@ -16,12 +16,12 @@ const LogForm = () => {
   const [successMessage, setSuccessMessage] = useState(""); // ✅ State for success message
 
   const windSpeeds = [
-    "0-5 knots",
-    "6-10 knots",
-    "11-15 knots",
-    "16-20 knots",
-    "21-25 knots",
-    "26-30 knots",
+    "0-5",
+    "6-10",
+    "11-15",
+    "16-20",
+    "21-25",
+    "26-30",
     "Da Fuck we doing here",
   ];
 

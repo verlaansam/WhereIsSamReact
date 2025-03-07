@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 function BlogItem({ post }) {
   const [isOpen, setIsOpen] = useState(false); // Control popup visibility
   const formattedDate = post.date?.toDate().toLocaleDateString("nl-NL"); // ✅ Convert Firestore timestamp
+  console.log(post)
 
   return (
     <>
@@ -13,6 +14,7 @@ function BlogItem({ post }) {
         onClick={() => setIsOpen(true)}
       >
         <h3 className="text-lg font-roboto-slab text-gray-200">{post.title}</h3>
+        <p className="text-gray-200">Woei van {post.windSpeed} knoopjes uit {post.windDirection}</p>
         <p className="text-sm text-gray-600">Geplaatst op {formattedDate}</p>
         <div className="mt-2 text-gray-200 truncate">
               <ReactMarkdown >{post.notes || "*Geen notities beschikbaar*"}</ReactMarkdown>
@@ -31,11 +33,11 @@ function BlogItem({ post }) {
           >
             <X size={24} />
           </button>
-          <h3 className="text-xl font-roboto-slab text-gray-200">{post.title}</h3>
+          <h2 className="text-xl font-roboto-slab text-gray-200">{post.title}</h2>
+          <h3 className="text-gray-200">Woei van {post.windSpeed} knoopjes uit {post.windDirection}</h3>
           <p className="text-sm text-gray-600">Geplaatst op {formattedDate}</p>
-
           {/* Markdown-rendered notes */}
-          <div className="mt-4 text-gray-200 prose prose-invert">
+          <div className="mt-2 text-gray-200 prose prose-invert">
             <ReactMarkdown>{post.notes || "*Geen notities beschikbaar*"}</ReactMarkdown>
           </div>
         </div>
