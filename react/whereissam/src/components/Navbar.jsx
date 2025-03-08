@@ -42,11 +42,6 @@ const Navbar = () => {
               Login
             </Link>
           </li>
-          <li>
-            <Link to="/Signup" className="block p-3 md:p-0 hover:underline" onClick={() => setIsOpen(false)}>
-              SIgnup
-            </Link>
-          </li>
         </ul>
       </div>
     </nav>

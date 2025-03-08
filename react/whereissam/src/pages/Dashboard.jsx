@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db, collection, query, orderBy } from "../firebase";
-import { onSnapshot } from "firebase/firestore"; // ✅ Real-time updates
+import { onSnapshot } from "firebase/firestore"; 
 import BlogItemSpecial from "../components/BlogItemSpecial";
 import Header from "../components/Header";
 import { useAuth } from "../context/AuthContext";
@@ -8,29 +8,27 @@ import { useNavigate } from "react-router-dom";
 import Form from "../components/Form";
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, loading } = useAuth();
   const navigate = useNavigate();
   const [blogPosts, setBlogPosts] = useState([]);
 
   const ALLOWED_UID = import.meta.env.VITE_ALLOWED_UID;
   const ALLOWED_EMAIL = import.meta.env.VITE_ALLOWED_EMAIL;
 
-  // Redirect if not logged in
-  if (!user) {
-    navigate("/login");
-    return null;
-  }
-
-  if (user.uid !== ALLOWED_UID && user.email !== ALLOWED_EMAIL) {
-    navigate("/");
-    return null;
-  }
-
-  // ✅ Real-time updates met Firestore
+  // ✅ Wacht tot Firebase klaar is met laden
   useEffect(() => {
-    const blogQuery = query(collection(db, "logEntries"), orderBy("date", "desc"));
+    if (!loading) {
+      if (!user || (user.uid !== ALLOWED_UID && user.email !== ALLOWED_EMAIL)) {
+        navigate("/");
+      }
+    }
+  }, [user, navigate, loading]);
 
-    // 🔥 Luister naar Firestore updates
+  // ✅ Wacht tot auth geladen is voordat Firestore laadt
+  useEffect(() => {
+    if (loading || !user) return;
+
+    const blogQuery = query(collection(db, "logEntries"), orderBy("date", "desc"));
     const unsubscribe = onSnapshot(blogQuery, (querySnapshot) => {
       const posts = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -39,8 +37,13 @@ const Dashboard = () => {
       setBlogPosts(posts);
     });
 
-    return () => unsubscribe(); // 🛑 Cleanup bij unmount
-  }, []);
+    return () => unsubscribe();
+  }, [user, loading]);
+
+  // ✅ Laat een "loading" scherm zien totdat Firebase klaar is
+  if (loading) {
+    return <p className="text-black text-5xl text-center mt-10">Loading...</p>;
+  }
 
   return (
     <div className="w-screen h-full flex flex-col items-center justify-start bg-slate-950 text-gray-200">
@@ -67,5 +70,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
